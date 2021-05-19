@@ -1,18 +1,22 @@
-var checkbox = document.querySelector("input[name=theme]");
+let darkMode = localStorage.getItem("darkMode");
+const darkModeToggle = document.querySelector("#dark-mode-toggle");
 
-checkbox.addEventListener("change", function () {
-  if (this.checked) {
-    trans();
-    document.documentElement.setAttribute("data-theme", "dark");
+const enableDarkMode = () => {
+  document.body.classList.add("darkmode");
+  localStorage.setItem("darkMode", "enabled");
+};
+
+const disableDarkMode = () => {
+  document.body.classList.remove("darkmode");
+  localStorage.setItem("darkMode", null);
+};
+
+darkModeToggle.addEventListener("click", () => {
+  darkMode = localStorage.getItem("darkMode");
+
+  if (darkMode !== "enabled") {
+    enableDarkMode();
   } else {
-    trans();
-    document.documentElement.setAttribute("data-theme", "light");
+    disableDarkMode();
   }
 });
-
-let trans = () => {
-  document.documentElement.classList.add("transition");
-  window.setTimeout(() => {
-    document.documentElement.classList.remove("transition");
-  }, 1000);
-};
